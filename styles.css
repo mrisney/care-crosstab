@@ -1,0 +1,10 @@
+#form-container {
+    margin: 10px 10px 30px;
+}
+#load-indicator {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+#pivotgrid {
+    margin-top: 20px;
+}
