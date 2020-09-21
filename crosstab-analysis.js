@@ -1,5 +1,6 @@
 $(function () {
 
+    const AGENCY = "wy"
     const REST_SVC_BASE_URL = "http://dev.itis-app.com/care-rest";
 
     // datasources lookup
@@ -8,7 +9,7 @@ $(function () {
         loadMode: "raw",
         cacheRawData: true,
         load: function () {
-            return $.getJSON(REST_SVC_BASE_URL +'/api/v1/datasources');
+            return $.getJSON(REST_SVC_BASE_URL +'/api/v1/' + AGENCY + '/datasources');
         }
     });
 
@@ -19,7 +20,7 @@ $(function () {
         cacheRawData: true,
         byKey: function (key) {
             var d = new $.Deferred();
-            $.get(REST_SVC_BASE_URL + '/api/v1/filters?datasource=' + key)
+            $.get(REST_SVC_BASE_URL + '/api/v1/' + AGENCY + '/filters?datasource=' + key)
                 .done(function (dataItem) {
                     d.resolve(dataItem);
                 });
@@ -34,7 +35,7 @@ $(function () {
         cacheRawData: true,
         byKey: function (key) {
             var d = new $.Deferred();
-            $.get(REST_SVC_BASE_URL + '/api/v1/variables?datasource=' + key)
+            $.get(REST_SVC_BASE_URL + '/api/v1/' + AGENCY + '/variables?datasource=' + key)
                 .done(function (dataItem) {
                     d.resolve(dataItem);
                 });
@@ -45,7 +46,7 @@ $(function () {
     // crosstab data store
     var crossTabDS = new DevExpress.data.CustomStore({
         load: function (values) {
-            return $.post(REST_SVC_BASE_URL + '/api/v1/crosstab-analysis', values);
+            return $.post(REST_SVC_BASE_URL + '/api/v1/' + AGENCY +'/crosstab-analysis', values);
         }
     });
 
@@ -66,7 +67,7 @@ $(function () {
     function getCrossTabData() {
         console.log("CrossTab request =  " + JSON.stringify(crossTabRequest));
         $.ajax({
-            url: REST_SVC_BASE_URL + '/api/v1/crosstab-analysis',
+            url: REST_SVC_BASE_URL + '/api/v1/' + AGENCY +'/crosstab-analysis',
             type: "POST",
             data: JSON.stringify(crossTabRequest),
             contentType: "application/json; charset=utf-8",
